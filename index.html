@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#FFF8ED" />
+  <meta name="description" content="CaliDa: encuentra en minutos el centro de acopio de Cali que necesita lo que tienes para donar." />
+  <title>CaliDa · Ayuda que llega donde hace falta</title>
+
+  <!-- Tipografías del moodboard: Fredoka para títulos, Nunito para texto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/donante.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="css/entrada.css" />
+
+  <!-- three.js (versión fija) para el mapa 3D de Cali (D4) -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- El router (main.js) renderiza cada pantalla dentro de #app -->
+  <div id="app" role="main"></div>
+  <noscript>
+    <p style="padding:2rem;font-family:sans-serif;">CaliDa necesita JavaScript activado para funcionar.</p>
+  </noscript>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+/* ============================================================
+   base.css — variables de marca, reset y utilidades compartidas
+   por los flujos de donante y administrador.
+   ============================================================ */
+
+:root {
+  color-scheme: light; /* la marca es clara: evita controles en modo oscuro */
+
+  /* === Paleta oficial de CaliDa (aprobada el 10/10/2026) ===
+     Rojo carmín para avanzar, azul para confiar, cálidos para acompañar,
+     verde/beige/rosa para el estado de cada necesidad, neutros para leer. */
+
+  /* 1. Identidad cálida */
+  --color-carmin: #CC0100;        /* botón principal (texto blanco 5.9:1) */
+  --color-coral: #F67751;         /* mascota, ilustración, acentos (no fondo de texto blanco) */
+  --color-crema: #FDD794;         /* amarillo mantequilla: destacados */
+  --color-verde-agua: #86B5A9;    /* verde salvia: calma, mapa, secciones */
+  --color-superficie: #FFFFFF;    /* tarjetas y zonas de lectura */
+
+  /* 2. Confianza y respaldo */
+  --color-azul: #011E41;          /* azul Cruz Roja: títulos, datos verificados, lotes */
+  --color-petroleo: #426D8C;      /* enlaces, botones secundarios, mapa */
+  --color-rojo-marca: #F5333F;    /* solo logo y marca oficial */
+
+  /* 3. Estados */
+  --color-bosque: #3E7A6C;        /* se necesita / entregado (texto blanco) */
+  --color-arena: #E8E1D5;         /* no se necesita (texto marrón carbón) */
+  --color-rosa-alerta: #FCE8E8;   /* urgente: fondo */
+  --color-rojo-profundo: #A5121A; /* urgente: texto · hover del botón principal */
+
+  /* 4. Neutros */
+  --color-fondo: #FFF8ED;         /* marfil cálido */
+  --color-texto: #514B46;         /* marrón carbón (8.1:1 sobre marfil) */
+  --color-texto-suave: #6E655D;   /* 5.4:1 sobre marfil */
+  --color-borde: #E8E1D5;
+
+  /* Nombres oficiales de la paleta (usados en las pantallas 1–3) */
+  --rojo-carmin: #CC0100;
+  --rojo-profundo: #A5121A;
+  --azul-cruz-roja: #011E41;
+  --azul-petroleo: #426D8C;
+  --coral: #F67751;
+  --amarillo: #FDD794;
+  --salvia: #86B5A9;
+  --marfil: #FFF8ED;
+  --beige-arena: #E8E1D5;
+  --marron-carbon: #514B46;
+  --rosa-alerta: #FCE8E8;
+  --rojo-cruz-roja: #F5333F; /* SOLO para el logo oficial, nunca en la interfaz */
+  --blanco: #FFFFFF;
+
+  /* Fondo de pantalla: hoy marfil; luego se cambia aquí por la textura,
+     p. ej. url('../assets/textura.png') repeat, var(--marfil) */
+  --fondo-pantalla: var(--marfil);
+
+  /* Alias usados en el código */
+  --color-titulo: var(--color-azul);
+  --color-accion: var(--color-carmin);
+  --color-accion-hover: var(--color-rojo-profundo);
+  --color-rojo: var(--color-carmin);
+  --color-coral-oscuro: var(--color-rojo-profundo); /* texto de acento */
+  --color-foco: var(--color-petroleo);
+
+/* Tipografía */
+  --fuente-titulo: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  --fuente-texto: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+
+  /* Geometría del estilo "clay" (esquinas redondeadas, sombra suave) */
+  --radio-chico: 12px;
+  --radio-medio: 20px;
+  --radio-grande: 32px;
+  --sombra-suave: 0 6px 16px rgba(58, 42, 20, 0.12);
+  --sombra-chica: 0 3px 8px rgba(58, 42, 20, 0.10);
+
+  /* Duración de transiciones entre pantallas */
+  --duracion-transicion: 280ms;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--fondo-pantalla);
+  color: var(--color-texto);
+  font-family: var(--fuente-texto);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--fuente-titulo);
+  font-weight: 800;
+  color: var(--color-titulo);
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+}
+
+h2, h3 {
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1em;
+  line-height: 1.5;
+}
+
+button {
+  font-family: var(--fuente-texto);
+  cursor: pointer;
+}
+
+/* Botón base: táctil (min 44px), esquinas muy redondeadas, sombra suave */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 44px;
+  padding: 0.75em 1.5em;
+  border: none;
+  border-radius: 999px; /* botones en píldora, como la pantalla inicial */
+  background: var(--color-accion);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: var(--sombra-chica);
+  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
+
+.boton:hover {
+  background: var(--color-accion-hover);
+  box-shadow: var(--sombra-suave);
+}
+
+.boton:active {
+  transform: scale(0.97);
+}
+
+.boton:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+.boton--secundario {
+  background: var(--color-superficie);
+  color: var(--color-petroleo);
+  border: 2px solid var(--color-petroleo);
+  box-shadow: none;
+}
+
+.boton--secundario:hover {
+  background: #EEF3F7;
+}
+
+.boton--urgente {
+  background: var(--color-rojo);
+}
+
+/* Botón "Atrás": presente en toda pantalla interna */
+.boton-atras {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: 44px;
+  padding: 0.5em 1em;
+  border: none;
+  background: transparent;
+  color: var(--color-petroleo);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radio-chico);
+}
+
+.boton-atras:hover {
+  color: var(--color-azul);
+  background: #EEF3F7;
+}
+
+.boton-atras:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+/* Tarjeta genérica estilo "clay" */
+.tarjeta {
+  background: var(--color-superficie);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra-suave);
+  padding: 1.5rem;
+}
+
+/* Contenedor raíz donde el router monta cada vista */
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.vista {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .vista {
+    max-width: 720px;
+    padding: 2rem;
+  }
+}
+
+/* Transición entre pantallas: la vista nueva entra desde la derecha al
+   avanzar en el flujo y desde la izquierda al volver (ver main.js). */
+.vista--entrando {
+  animation: calida-avanzar var(--duracion-transicion) cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+#app[data-direccion="retroceder"].vista--entrando {
+  animation-name: calida-retroceder;
+}
+
+@keyframes calida-avanzar {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes calida-retroceder {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* El título recibe el foco al cambiar de pantalla (lectores de pantalla):
+   no necesita un contorno visible porque no es un control. */
+h1[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/* Bordes del celular (notch y barra de inicio) */
+body {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Evita el desplazamiento horizontal en cualquier pantalla */
+html,
+body {
+  overflow-x: hidden;
+}
+
+@keyframes calida-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respeta la preferencia de movimiento reducido del sistema */
+@media (prefers-reduced-motion: reduce) {
+  .vista--entrando {
+    animation: none;
+  }
+  * {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

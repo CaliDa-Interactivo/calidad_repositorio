@@ -1,0 +1,1865 @@
+/* ============================================================
+   donante.css — estilos del flujo de donante (D1–D6).
+   D4 es el mapa 3D de Cali (ver sección "D4 · Mapa 3D" al final).
+   ============================================================ */
+
+/* --- Mascota guía (gato) -------------------------------------- */
+
+.gato-guia {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.gato-guia__imagen {
+  flex-shrink: 0;
+  width: 64px;
+  height: 80px;
+  object-fit: contain;
+  animation: gato-entrada 500ms ease both;
+}
+
+.gato-guia--grande .gato-guia__imagen {
+  width: 110px;
+  height: 138px;
+}
+
+@keyframes gato-entrada {
+  from {
+    opacity: 0;
+    transform: scale(0.6) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.gato-guia__globo {
+  position: relative;
+  background: var(--color-superficie);
+  border: 2px solid var(--color-azul);
+  border-radius: var(--radio-medio);
+  padding: 0.75rem 1rem;
+  box-shadow: var(--sombra-chica);
+}
+
+.gato-guia__globo p {
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-azul);
+}
+
+/* --- D1 · Bienvenida -------------------------------------------- */
+
+.vista-bienvenida {
+  justify-content: center;
+  gap: 2rem;
+}
+
+.bienvenida__contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bienvenida__texto p {
+  color: var(--color-texto-suave);
+  font-size: 1.05rem;
+}
+
+.bienvenida__gato {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .bienvenida__contenido {
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .bienvenida__texto,
+  .bienvenida__gato {
+    flex: 1;
+  }
+}
+
+.enlace-discreto {
+  margin-top: auto;
+  padding-top: 2rem;
+  text-align: center;
+  color: var(--color-texto-suave);
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+
+/* --- D2 · Estantería ---------------------------------------------- */
+
+.estanteria__encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.estanteria__encabezado h1 {
+  flex: 1;
+  font-size: 1.4rem;
+}
+
+.buscador {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-superficie);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-medio);
+  padding: 0.4em 0.9em;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .buscador {
+    width: auto;
+    margin-left: auto;
+  }
+}
+
+.buscador input {
+  border: none;
+  outline: none;
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  background: transparent;
+  width: 100%;
+}
+
+.estanteria__repisas {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.repisa {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+  background: linear-gradient(180deg, var(--color-superficie) 0%, var(--color-crema) 150%);
+  border: none;
+  border-radius: var(--radio-grande);
+  padding: 1.25rem 1.25rem 0.75rem;
+  box-shadow: var(--sombra-chica);
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.repisa:hover,
+.repisa:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-suave);
+  background: linear-gradient(180deg, var(--color-superficie) 0%, var(--color-coral) 220%);
+}
+
+.repisa:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+.repisa--opaca {
+  opacity: 0.35;
+}
+
+.repisa__encabezado {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.repisa__nombre {
+  font-family: var(--fuente-titulo);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.repisa__objetos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.repisa__objeto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--color-texto-suave);
+  transition: transform 180ms ease;
+}
+
+.repisa:hover .repisa__objeto {
+  transform: translateY(-4px);
+}
+
+.repisa__objeto--resaltado {
+  transform: translateY(-6px) scale(1.08);
+}
+
+.repisa__objeto--resaltado .repisa__objeto-nombre {
+  color: var(--color-coral-oscuro);
+  font-weight: 700;
+}
+
+.repisa__tabla {
+  display: block;
+  height: 10px;
+  border-radius: 6px;
+  background: var(--color-coral);
+  opacity: 0.6;
+}
+
+/* --- D3 · Subcategorías --------------------------------------------- */
+
+.vista-subcategorias h1 {
+  margin-top: 1rem;
+}
+
+.subcategorias__grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.subcategoria-tarjeta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-superficie);
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-grande);
+  padding: 1.5rem 1rem;
+  box-shadow: var(--sombra-chica);
+  font-weight: 700;
+  color: var(--color-texto);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.subcategoria-tarjeta:hover,
+.subcategoria-tarjeta:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--color-coral);
+  box-shadow: var(--sombra-suave);
+}
+
+.subcategoria-tarjeta:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+/* --- D4 · Indicador y lista de centros (compartidos con el mapa 3D) --- */
+
+.mapa__indicador {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--color-crema);
+  color: var(--color-azul);
+  font-weight: 700;
+  padding: 0.35em 0.9em;
+  border-radius: var(--radio-chico);
+  margin: 0.5rem 0 1rem;
+}
+
+.mapa__nota {
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+  font-style: italic;
+}
+
+.vista-mapa .gato-guia {
+  margin-bottom: 1rem;
+}
+
+.mapa__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.centro-tarjeta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+  background: var(--color-superficie);
+  border-radius: var(--radio-medio);
+  padding: 1rem 1.25rem;
+  border-left: 6px solid var(--color-bosque);
+  box-shadow: var(--sombra-chica);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.centro-tarjeta:hover,
+.centro-tarjeta:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-suave);
+}
+
+.centro-tarjeta:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+.centro-tarjeta--urgente {
+  border-left-color: var(--color-rojo);
+  animation: centro-urgente-pulso 2.2s ease-in-out infinite;
+}
+
+@keyframes centro-urgente-pulso {
+  0%, 100% { box-shadow: var(--sombra-chica); }
+  50% { box-shadow: 0 0 0 4px rgba(209, 0, 0, 0.12); }
+}
+
+.centro-tarjeta__badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.9rem;
+  background: var(--color-rosa-alerta);
+  color: var(--color-rojo-profundo);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2em 0.6em;
+  border-radius: 999px;
+}
+
+.centro-tarjeta__nombre {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.centro-tarjeta__zona {
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+/* --- D5 · Ficha del centro + D6 "Cómo llegar" ----------------------- */
+
+.vista-ficha {
+  justify-content: center;
+}
+
+.ficha-centro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.ficha-centro__foto {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-crema);
+  border-radius: var(--radio-grande);
+  margin-bottom: 0.75rem;
+}
+
+.ficha-centro__dato {
+  color: var(--color-texto-suave);
+}
+
+.boton--grande {
+  margin-top: 1rem;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gato-guia__imagen {
+    animation: none;
+  }
+  .centro-tarjeta--urgente {
+    animation: none;
+  }
+}
+
+/* --- D4 · Mapa 3D de Cali (Fase 3) ---------------------------------- */
+
+.vista.vista-mapa3d {
+  max-width: 1100px;
+  gap: 0.75rem;
+}
+
+.mapa3d__encabezado {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.mapa3d__encabezado .mapa__indicador {
+  margin: 0;
+}
+
+.mapa3d {
+  position: relative;
+  height: min(62vh, 640px);
+  min-height: 360px;
+  border-radius: var(--radio-grande);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 40%, #FFF7E6 0%, #FCEBCB 70%, #F7DFB4 100%);
+  box-shadow: var(--sombra-suave);
+}
+
+.mapa3d__lienzo {
+  position: absolute;
+  inset: 0;
+}
+
+.mapa3d__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none; /* los gestos los maneja el mapa */
+}
+
+.mapa3d__canvas:active {
+  cursor: grabbing;
+}
+
+/* Etiquetas HTML proyectadas sobre las zonas */
+.mapa3d__etiquetas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.mapa3d__etiqueta-zona {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.15em 0.65em;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--color-texto);
+  font-family: var(--fuente-titulo);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  box-shadow: var(--sombra-chica);
+  white-space: nowrap;
+  transition: opacity 250ms ease, background 250ms ease, color 250ms ease;
+}
+
+.mapa3d__etiqueta-zona--activa {
+  background: var(--color-petroleo);
+  color: #fff;
+}
+
+.mapa3d__etiqueta-zona--atenuada {
+  opacity: 0.45;
+}
+
+/* Nombre del centro al pasar el puntero / primer toque */
+.mapa3d__tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 220px;
+  padding: 0.4em 0.8em;
+  margin-top: -6px;
+  border-radius: var(--radio-chico);
+  background: var(--color-texto);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-align: center;
+  pointer-events: none;
+  box-shadow: var(--sombra-suave);
+}
+
+.mapa3d__tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom: 0;
+  border-top-color: var(--color-texto);
+}
+
+.mapa3d__cargando {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  color: var(--color-texto-suave);
+  pointer-events: none;
+}
+
+.mapa3d:not([data-estado="cargando"]) .mapa3d__cargando {
+  display: none;
+}
+
+/* Sin three.js o sin WebGL: el mapa se esconde y queda la lista */
+.mapa3d[data-estado="sin-mapa"] {
+  height: auto;
+  min-height: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mapa3d[data-estado="sin-mapa"] .mapa3d__lienzo,
+.mapa3d[data-estado="sin-mapa"] .mapa3d__controles,
+.mapa3d[data-estado="sin-mapa"] .mapa3d__leyenda {
+  display: none;
+}
+
+.mapa3d[data-estado="sin-mapa"] .mapa3d__gato {
+  position: static;
+}
+
+/* Leyenda */
+.mapa3d__leyenda {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: flex;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.4rem 0.8rem;
+  list-style: none;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: var(--sombra-chica);
+}
+
+.mapa3d__leyenda li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.punto {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+}
+
+.punto--urgente {
+  background: var(--color-rojo);
+}
+
+.punto--desabastecido {
+  background: var(--color-bosque);
+}
+
+/* Zoom y "ver toda Cali" */
+.mapa3d__controles {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mapa3d__control {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: var(--radio-chico);
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  font-size: 1.3rem;
+  font-weight: 700;
+  box-shadow: var(--sombra-chica);
+  transition: transform 150ms ease, background 150ms ease;
+}
+
+.mapa3d__control:hover {
+  background: var(--color-crema);
+}
+
+.mapa3d__control:active {
+  transform: scale(0.94);
+}
+
+.mapa3d__control:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+/* Gato guía en la esquina del mapa */
+.mapa3d__gato {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  max-width: min(360px, calc(100% - 1.5rem));
+  pointer-events: none;
+}
+
+.mapa3d__gato .gato-guia__imagen {
+  width: 56px;
+  height: 70px;
+}
+
+.mapa3d__gato .gato-guia__globo p {
+  font-size: 0.9rem;
+}
+
+.mapa3d[data-estado="listo"] .mapa3d__gato .gato-guia__globo {
+  animation: globo-rebote 450ms ease;
+}
+
+@keyframes globo-rebote {
+  0% { transform: scale(0.92); }
+  60% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* Botones de zona */
+.mapa3d__zonas {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.25rem 0.1rem 0.5rem;
+  scrollbar-width: thin;
+}
+
+.chip-zona {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0.4rem 0.9rem;
+  border: 2px solid var(--color-borde);
+  border-radius: 999px;
+  background: var(--color-superficie);
+  color: var(--color-texto);
+  font-weight: 700;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.chip-zona:hover {
+  border-color: var(--color-petroleo);
+}
+
+.chip-zona:active {
+  transform: scale(0.96);
+}
+
+.chip-zona:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+.chip-zona[aria-pressed="true"] {
+  background: var(--color-petroleo);
+  border-color: var(--color-petroleo);
+  color: #fff;
+}
+
+.chip-zona__conteo {
+  min-width: 1.4em;
+  padding: 0 0.35em;
+  border-radius: 999px;
+  background: var(--color-crema);
+  color: var(--color-azul);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.chip-zona[aria-pressed="true"] .chip-zona__conteo {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+/* Lista enlazada con el mapa */
+.mapa3d__titulo-lista {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0;
+}
+
+.mapa3d__lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mapa3d__lista > li[hidden] {
+  display: none;
+}
+
+.mapa3d__lista .centro-tarjeta {
+  width: 100%;
+  border: none;
+  border-left: 6px solid var(--color-bosque);
+  font: inherit;
+  color: inherit;
+}
+
+.mapa3d__lista .centro-tarjeta--urgente {
+  border-left-color: var(--color-rojo);
+}
+
+.centro-tarjeta--resaltada {
+  transform: translateY(-3px);
+  box-shadow: var(--sombra-suave);
+  background: #FFF6EA;
+}
+
+.mapa3d__sin-resultados {
+  color: var(--color-texto-suave);
+  font-style: italic;
+}
+
+.mapa3d__vacio {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+@media (min-width: 900px) {
+  .mapa3d__lista {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .mapa3d {
+    height: 58vh;
+    border-radius: var(--radio-medio);
+  }
+  .mapa3d__leyenda {
+    font-size: 0.72rem;
+    gap: 0.5rem;
+  }
+  .mapa3d__etiqueta-zona {
+    font-size: 0.72rem;
+  }
+  .mapa3d__gato .gato-guia__imagen {
+    width: 44px;
+    height: 56px;
+  }
+  .mapa3d__gato .gato-guia__globo p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mapa3d[data-estado="listo"] .mapa3d__gato .gato-guia__globo {
+    animation: none;
+  }
+}
+
+/* ===================================================================
+   Mueble / estantería de madera (referencia: estantería 3D del equipo)
+   Se usa en D2, D3 y en las estanterías del administrador (A4, A5).
+   Marco de madera redondeado con huecos (compartimientos) hundidos;
+   cada hueco tiene una placa con el nombre y los productos encima de
+   la repisa. Con 5 categorías: 2 columnas y la última ocupa el ancho.
+   =================================================================== */
+
+:root {
+  --madera: #EFAE77;
+  --madera-clara: #F7C495;
+  --madera-oscura: #C9773F;
+  --madera-fondo: #DC8E57;
+  --madera-fondo-oscuro: #C97A45;
+  --madera-repisa: #F5BC88;
+}
+
+.mueble {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding-bottom: 18px; /* espacio para las patas */
+}
+
+.mueble .mueble__cuerpo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 16px;
+  border-radius: 34px;
+  background: linear-gradient(160deg, var(--madera-clara) 0%, var(--madera) 45%, #E59F65 100%);
+  box-shadow:
+    inset 0 3px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -6px 0 rgba(150, 80, 35, 0.25),
+    0 14px 24px rgba(120, 60, 20, 0.22);
+}
+
+/* La última pieza ocupa todo el ancho cuando el número es impar */
+.mueble .mueble__cuerpo > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 640px) {
+  .mueble--subcategorias {
+    max-width: 760px;
+  }
+  .mueble--subcategorias .mueble__cuerpo {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .mueble--subcategorias .mueble__cuerpo > :last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
+
+/* Patas del mueble */
+.mueble__patas {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mueble__patas span {
+  width: 34px;
+  height: 22px;
+  border-radius: 0 0 12px 12px;
+  background: linear-gradient(180deg, var(--madera-oscura), #B2652F);
+}
+
+/* --- Hueco (compartimiento) ------------------------------------------- */
+/* Se aplica a las repisas de categoría, a las subcategorías y a las
+   secciones del administrador. */
+
+.mueble .repisa,
+.mueble .subcategoria-tarjeta,
+.mueble .seccion-insumo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 150px;
+  padding: 0.65rem 0.6rem 0;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(180deg, var(--madera-fondo-oscuro) 0%, var(--madera-fondo) 35%, #E39A63 100%);
+  /* Sombra interior: el hueco se ve hundido en el mueble */
+  box-shadow:
+    inset 0 12px 16px rgba(110, 50, 15, 0.28),
+    inset 6px 0 10px rgba(110, 50, 15, 0.12),
+    inset -6px 0 10px rgba(110, 50, 15, 0.12);
+  color: var(--color-texto);
+  text-align: center;
+  overflow: hidden;
+  transition: transform 180ms ease, filter 180ms ease, opacity 180ms ease;
+}
+
+/* Tabla de la repisa: el borde inferior claro del hueco */
+.mueble .repisa::after,
+.mueble .subcategoria-tarjeta::after,
+.mueble .seccion-insumo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 12px;
+  background: linear-gradient(180deg, var(--madera-repisa), var(--madera));
+  box-shadow: 0 -2px 4px rgba(110, 50, 15, 0.18);
+}
+
+.mueble .repisa:hover,
+.mueble .repisa:focus-visible,
+.mueble .subcategoria-tarjeta:hover,
+.mueble .subcategoria-tarjeta:focus-visible {
+  transform: none;
+  filter: brightness(1.08) saturate(1.05);
+  background: linear-gradient(180deg, var(--madera-fondo-oscuro) 0%, var(--madera-fondo) 35%, #E39A63 100%);
+  border-color: transparent;
+  box-shadow:
+    inset 0 12px 16px rgba(110, 50, 15, 0.28),
+    inset 6px 0 10px rgba(110, 50, 15, 0.12),
+    inset -6px 0 10px rgba(110, 50, 15, 0.12),
+    0 0 0 3px var(--color-crema);
+}
+
+.mueble .repisa:focus-visible,
+.mueble .subcategoria-tarjeta:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 3px;
+}
+
+/* Placa con el nombre (arriba del hueco) */
+.mueble .repisa__encabezado,
+.hueco__etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25em 0.8em;
+  border-radius: 999px;
+  background: #FFF6E6;
+  box-shadow: 0 2px 4px rgba(110, 50, 15, 0.25);
+  font-family: var(--fuente-titulo);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-texto);
+  line-height: 1.2;
+}
+
+.mueble .repisa__encabezado img {
+  display: none; /* los productos ya representan la categoría */
+}
+
+.mueble .repisa__nombre {
+  font-size: inherit;
+}
+
+/* Productos parados sobre la repisa */
+.mueble .repisa__objetos,
+.hueco__productos {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.35rem 0.6rem;
+  width: 100%;
+  padding: 0 0.25rem 12px; /* se apoyan sobre la tabla */
+}
+
+.mueble .repisa__objeto {
+  color: #FFF6E6;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(80, 35, 10, 0.5);
+}
+
+.mueble .repisa__objeto img,
+.hueco__productos img {
+  filter: drop-shadow(0 4px 3px rgba(80, 35, 10, 0.35));
+  transition: transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hueco__productos {
+  flex-wrap: nowrap;
+}
+
+.hueco__productos img:not(:nth-child(2)) {
+  margin: 0 -6px;
+}
+
+.mueble .repisa:hover .repisa__objeto,
+.mueble .repisa:hover .repisa__objeto img {
+  transform: none;
+}
+
+.mueble .repisa:hover .repisa__objeto img,
+.mueble .subcategoria-tarjeta:hover .hueco__productos img {
+  transform: translateY(-6px);
+}
+
+.mueble .subcategoria-tarjeta:hover .hueco__productos img:nth-child(2) {
+  transition-delay: 50ms;
+}
+
+.mueble .subcategoria-tarjeta:hover .hueco__productos img:nth-child(3) {
+  transition-delay: 100ms;
+}
+
+.mueble .repisa__objeto--resaltado img {
+  transform: translateY(-8px) scale(1.12);
+}
+
+.mueble .repisa__objeto--resaltado .repisa__objeto-nombre {
+  color: #FFF;
+  text-decoration: underline;
+}
+
+.mueble .repisa--opaca {
+  opacity: 0.4;
+}
+
+.mueble .repisa__tabla {
+  display: none; /* la tabla la dibuja ::after */
+}
+
+/* En el mueble los productos hablan solos: el nombre de cada uno queda
+   para lectores de pantalla y para el buscador. */
+.mueble .repisa__objeto-nombre {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.mueble .repisa__objeto img {
+  width: 44px;
+  height: 44px;
+}
+
+.mueble--subcategorias .subcategoria-tarjeta {
+  min-height: 180px;
+}
+
+.mueble--subcategorias .hueco__productos img:nth-child(2) {
+  width: 64px;
+  height: 64px;
+}
+
+@media (max-width: 420px) {
+  .mueble .mueble__cuerpo {
+    gap: 9px;
+    padding: 12px;
+    border-radius: 26px;
+  }
+  .mueble .repisa__objeto img {
+    width: 32px;
+    height: 32px;
+  }
+  .mueble .repisa__encabezado,
+  .hueco__etiqueta {
+    font-size: 0.85rem;
+  }
+  .hueco__productos img {
+    width: 30px;
+    height: 30px;
+  }
+  .hueco__productos img:nth-child(2),
+  .mueble--subcategorias .hueco__productos img:nth-child(2) {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mueble .repisa:hover .repisa__objeto img,
+  .mueble .subcategoria-tarjeta:hover .hueco__productos img {
+    transform: none;
+  }
+}
+
+/* --- Fase 6 · ajustes para pantallas angostas ------------------------- */
+
+/* El nombre no se monta debajo de la etiqueta "Urgente" */
+.centro-tarjeta--urgente .centro-tarjeta__nombre {
+  padding-right: 4.5rem;
+}
+
+@media (max-width: 360px) {
+  .mueble .repisa__objetos {
+    flex-wrap: nowrap;
+    gap: 0.2rem;
+  }
+  .mueble .repisa__objeto img {
+    width: 28px;
+    height: 28px;
+  }
+  .mueble .repisa__encabezado,
+  .hueco__etiqueta {
+    font-size: 0.78rem;
+    padding: 0.2em 0.6em;
+  }
+}
+
+/* ===================================================================
+   Productos 3D (ilustraciones.js) dentro del mueble
+   =================================================================== */
+
+.producto3d {
+  display: block;
+  flex-shrink: 0;
+  overflow: visible;
+  transition: transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mueble .repisa__objeto .producto3d {
+  width: 66px;
+  height: 66px;
+}
+
+.mueble .repisa__objetos {
+  flex-wrap: nowrap;
+  gap: 0.1rem;
+}
+
+.hueco__productos .producto3d:not(:only-child) {
+  margin: 0 -7px;
+}
+
+/* Al pasar el puntero los productos saltan, uno detrás de otro */
+.mueble .repisa:hover .producto3d,
+.mueble .subcategoria-tarjeta:hover .producto3d,
+.mueble .repisa:focus-visible .producto3d,
+.mueble .subcategoria-tarjeta:focus-visible .producto3d {
+  transform: translateY(-7px) rotate(-3deg);
+}
+
+.mueble .repisa .repisa__objeto:nth-child(2) .producto3d,
+.mueble .subcategoria-tarjeta .producto3d:nth-child(2) {
+  transition-delay: 50ms;
+}
+
+.mueble .repisa .repisa__objeto:nth-child(3) .producto3d,
+.mueble .subcategoria-tarjeta .producto3d:nth-child(3) {
+  transition-delay: 100ms;
+}
+
+.mueble .subcategoria-tarjeta .producto3d:nth-child(4) {
+  transition-delay: 150ms;
+}
+
+.mueble .repisa__objeto--resaltado .producto3d {
+  transform: translateY(-8px) scale(1.15);
+}
+
+/* Huecos anchos (el último a todo el ancho): productos más grandes */
+.mueble .mueble__cuerpo > :last-child:nth-child(odd) .producto3d {
+  width: 76px;
+  height: 76px;
+}
+
+.mueble .mueble__cuerpo > :last-child:nth-child(odd) .hueco__productos .producto3d:nth-child(2):not(:last-child) {
+  width: 96px;
+  height: 96px;
+}
+
+@media (max-width: 420px) {
+  .mueble .repisa__objeto .producto3d {
+    width: 50px;
+    height: 50px;
+  }
+  .hueco__productos .producto3d {
+    width: 50px;
+    height: 50px;
+  }
+  .hueco__productos .producto3d:nth-child(2):not(:last-child) {
+    width: 66px;
+    height: 66px;
+  }
+  .mueble .mueble__cuerpo > :last-child:nth-child(odd) .producto3d {
+    width: 64px;
+    height: 64px;
+  }
+  .mueble .mueble__cuerpo > :last-child:nth-child(odd) .hueco__productos .producto3d:nth-child(2):not(:last-child) {
+    width: 82px;
+    height: 82px;
+  }
+}
+
+@media (max-width: 360px) {
+  .mueble .repisa__objeto .producto3d {
+    width: 42px;
+    height: 42px;
+  }
+  .hueco__productos .producto3d {
+    width: 42px;
+    height: 42px;
+  }
+  .hueco__productos .producto3d:nth-child(2):not(:last-child) {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mueble .repisa:hover .producto3d,
+  .mueble .subcategoria-tarjeta:hover .producto3d {
+    transform: none;
+  }
+}
+
+/* Pilas de ropa: bajitas y anchas, se muestran más grandes */
+.mueble .producto3d.producto3d--ancho {
+  width: 84px !important;
+  height: 84px !important;
+}
+
+.mueble .repisa__objeto .producto3d.producto3d--ancho {
+  width: 66px !important;
+  height: 66px !important;
+  margin: 0 -6px;
+}
+
+@media (max-width: 420px) {
+  .mueble .producto3d.producto3d--ancho {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  .mueble .repisa__objeto .producto3d.producto3d--ancho {
+    width: 54px !important;
+    height: 54px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .mueble .producto3d.producto3d--ancho {
+    width: 58px !important;
+    height: 58px !important;
+  }
+  .mueble .repisa__objeto .producto3d.producto3d--ancho {
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
+
+/* En computador las subcategorías van en 3 columnas iguales: el último
+   hueco ya no es ancho, así que sus productos vuelven al tamaño normal. */
+@media (min-width: 640px) {
+  .mueble--subcategorias .mueble__cuerpo > :last-child:nth-child(odd) .producto3d {
+    width: 64px;
+    height: 64px;
+  }
+  .mueble--subcategorias .mueble__cuerpo > :last-child:nth-child(odd) .hueco__productos .producto3d:nth-child(2):not(:last-child) {
+    width: 84px;
+    height: 84px;
+  }
+}
+
+/* Huecos con 4 productos (limpieza del hogar) en huecos angostos */
+@media (min-width: 640px) {
+  .mueble--subcategorias .hueco__productos:has(.producto3d:nth-child(4)) .producto3d {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .mueble--subcategorias .hueco__productos:has(.producto3d:nth-child(4)) .producto3d:nth-child(2) {
+    width: 62px !important;
+    height: 62px !important;
+  }
+}
+
+/* Paleta oficial: nombres de centros en azul (datos verificados) */
+.centro-tarjeta__nombre,
+.ficha__nombre {
+  color: var(--color-azul);
+}
+
+/* ===================================================================
+   Zoom a un recuadro de la estantería (zoom.js) y vista de cerca (D3)
+   =================================================================== */
+
+.mueble .repisa {
+  transition: transform 420ms cubic-bezier(0.3, 0.7, 0.2, 1), opacity 300ms ease, filter 180ms ease;
+}
+
+.mueble .repisa.repisa--acercando {
+  position: relative;
+  z-index: 20;
+  box-shadow: 0 30px 60px rgba(80, 35, 10, 0.35);
+}
+
+/* Lo demás se desvanece mientras el recuadro se acerca */
+.mueble--acercando .repisa:not(.repisa--acercando),
+.mueble--acercando ~ *,
+.vista:has(.mueble--acercando) > :not(.mueble) {
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.zoom__instruccion {
+  margin: -0.5rem 0 0.5rem;
+  color: var(--color-texto-suave);
+  font-weight: 600;
+}
+
+.mueble--zoom {
+  max-width: 820px;
+  animation: zoom-entrada 420ms cubic-bezier(0.3, 0.7, 0.2, 1) both;
+}
+
+@keyframes zoom-entrada {
+  from { transform: scale(0.82); opacity: 0.4; }
+  to { transform: none; opacity: 1; }
+}
+
+.mueble--zoom .mueble__cuerpo {
+  grid-template-columns: 1fr;
+}
+
+.hueco-zoom {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1rem 0;
+  border-radius: 20px;
+  background: linear-gradient(180deg, var(--madera-fondo-oscuro) 0%, var(--madera-fondo) 35%, #E39A63 100%);
+  box-shadow:
+    inset 0 14px 18px rgba(110, 50, 15, 0.28),
+    inset 8px 0 12px rgba(110, 50, 15, 0.12),
+    inset -8px 0 12px rgba(110, 50, 15, 0.12);
+}
+
+.hueco-zoom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16px;
+  border-radius: 0 0 20px 20px;
+  background: linear-gradient(180deg, var(--madera-repisa), var(--madera));
+}
+
+.hueco-zoom__productos {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  width: 100%;
+  padding-bottom: 16px;
+}
+
+.producto-zoom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  min-height: 190px;
+  padding: 0.75rem 0.5rem 0.9rem;
+  border: 3px solid transparent;
+  border-radius: 16px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.producto-zoom:hover,
+.producto-zoom:focus-visible {
+  background: rgba(255, 246, 230, 0.18);
+  border-color: #FFF6E6;
+}
+
+.producto-zoom:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+.producto-zoom .producto3d {
+  width: 120px;
+  height: 120px;
+}
+
+.producto-zoom:hover .producto3d,
+.producto-zoom:focus-visible .producto3d {
+  transform: translateY(-10px) rotate(-4deg) scale(1.06);
+}
+
+.producto-zoom__nombre {
+  padding: 0.35em 0.9em;
+  border-radius: 999px;
+  background: #FFF6E6;
+  box-shadow: 0 2px 4px rgba(110, 50, 15, 0.25);
+  color: var(--color-azul);
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .hueco-zoom__productos {
+    grid-template-columns: 1fr 1fr;
+  }
+  .producto-zoom:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+  .producto-zoom {
+    min-height: 160px;
+  }
+  .producto-zoom .producto3d {
+    width: 92px;
+    height: 92px;
+  }
+  .producto-zoom__nombre {
+    font-size: 0.88rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mueble--zoom { animation: none; }
+  .mueble .repisa { transition: none; }
+}
+
+/* ===================================================================
+   Cantidad de 0 a 5 (ficha del centro y gestión de insumos)
+   =================================================================== */
+
+.nivel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nivel__repisa {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  padding: 0.9rem 0.75rem 0;
+  border: 12px solid var(--madera);
+  border-bottom-width: 14px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, var(--madera-fondo-oscuro) 0%, var(--madera-fondo) 40%, #E39A63 100%);
+  box-shadow:
+    inset 0 12px 16px rgba(110, 50, 15, 0.3),
+    0 8px 18px rgba(120, 60, 20, 0.18);
+}
+
+.nivel__productos {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 64px;
+  padding-bottom: 6px;
+}
+
+.nivel__item {
+  display: inline-flex;
+}
+
+.nivel__item--lleno .producto3d {
+  animation: producto-cae 380ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.nivel__item--lleno:nth-child(2) .producto3d { animation-delay: 60ms; }
+.nivel__item--lleno:nth-child(3) .producto3d { animation-delay: 120ms; }
+.nivel__item--lleno:nth-child(4) .producto3d { animation-delay: 180ms; }
+.nivel__item--lleno:nth-child(5) .producto3d { animation-delay: 240ms; }
+
+@keyframes producto-cae {
+  from { transform: translateY(-18px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.nivel__item--vacio {
+  border: 2px dashed rgba(255, 246, 230, 0.55);
+  border-radius: 10px;
+}
+
+.nivel__texto {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-azul);
+}
+
+.nivel__chip {
+  padding: 0.2em 0.75em;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.nivel__chip--urgente { background: var(--color-rosa-alerta); color: var(--color-rojo-profundo); }
+.nivel__chip--desabastecido { background: var(--color-bosque); color: #fff; }
+.nivel__chip--medio { background: var(--color-crema); color: var(--color-azul); }
+.nivel__chip--abastecido { background: var(--color-arena); color: var(--color-texto); }
+
+.nivel--vacio .nivel__repisa::before {
+  content: "¡Vacío!";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  padding: 0.3em 0.9em;
+  border-radius: 999px;
+  background: var(--color-rosa-alerta);
+  color: var(--color-rojo-profundo);
+  font-weight: 800;
+  z-index: 1;
+}
+
+@media (max-width: 420px) {
+  .nivel__productos .producto3d,
+  .nivel__item--vacio {
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nivel__item--lleno .producto3d { animation: none; }
+}
+
+/* --- Ficha del centro: repisa de cantidad y pre-registro ------------- */
+
+.ficha-centro__subtitulo {
+  margin: 1rem 0 0.25rem;
+  font-size: 1.05rem;
+}
+
+.ficha-centro__nota {
+  margin: 0;
+  color: var(--color-texto-suave);
+  font-size: 0.9rem;
+}
+
+.ficha-prerregistro-ok {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: #DCEBE6;
+  text-align: left;
+}
+
+.ficha-prerregistro-ok p {
+  margin: 0;
+  color: #24493F;
+}
+
+/* --- D5b · Pre-registro ---------------------------------------------- */
+
+.prerregistro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 520px;
+}
+
+.prerregistro__resumen {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  background: var(--color-fondo);
+  border: 2px solid var(--color-borde);
+}
+
+.prerregistro__resumen p {
+  margin: 0;
+}
+
+.prerregistro__que {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--color-azul);
+}
+
+.prerregistro__donde {
+  color: var(--color-texto-suave);
+  font-weight: 600;
+}
+
+.prerregistro__ubicacion {
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  background: #EEF3F7;
+}
+
+.prerregistro__ubicacion-titulo {
+  font-weight: 700;
+  color: var(--color-azul);
+}
+
+.campo__opcional {
+  font-weight: 500;
+  color: var(--color-texto-suave);
+}
+
+.prerregistro__ubicacion .boton {
+  align-self: flex-start;
+}
+
+.prerregistro__ubicacion-estado {
+  margin: 0;
+  min-height: 1.2em;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-petroleo);
+}
+
+.vista-prerregistro .campo input[readonly] {
+  background: var(--color-fondo);
+}
+
+.prerregistro-listo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  animation: calida-avanzar 320ms ease both;
+}
+
+.prerregistro-listo h1 {
+  margin: 0;
+}
+
+.prerregistro-listo__check {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-bosque);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.prerregistro-listo__aviso {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: var(--color-crema);
+  color: var(--color-azul);
+  font-size: 1.05rem;
+}
+
+/* Mi ubicación en el mapa */
+.mapa3d__ubicacion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.mapa3d__ubicacion .boton {
+  min-height: 44px;
+}
+
+.mapa3d__ubicacion-estado {
+  margin: 0;
+  color: var(--color-petroleo);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.mapa3d__etiqueta-tu {
+  background: var(--color-petroleo) !important;
+  color: #fff !important;
+}
+
+.centro-tarjeta__distancia {
+  font-weight: 700;
+  color: var(--color-petroleo);
+}
+
+/* El recuadro de cerca no usa los tamaños de los huecos anchos */
+.mueble .producto-zoom .producto3d {
+  width: 120px !important;
+  height: 120px !important;
+}
+
+@media (max-width: 520px) {
+  .mueble .producto-zoom .producto3d {
+    width: 96px !important;
+    height: 96px !important;
+  }
+}
+
+/* ===================================================================
+   Zoom en la misma pantalla de la estantería (estanteria.js)
+   =================================================================== */
+
+body.sin-scroll {
+  overflow: hidden;
+}
+
+.zoom-capa {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: max(1rem, env(safe-area-inset-top, 0px)) 1rem max(1rem, env(safe-area-inset-bottom, 0px));
+}
+
+.zoom-capa[hidden] {
+  display: none;
+}
+
+.zoom-capa__fondo {
+  position: absolute;
+  inset: 0;
+  background: rgba(1, 30, 65, 0.45);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 380ms ease;
+}
+
+.zoom-capa--visible .zoom-capa__fondo {
+  opacity: 1;
+}
+
+.zoom-capa__panel {
+  position: relative;
+  width: min(92vw, 760px);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  padding: 1rem 1rem 1.25rem;
+  border-radius: 28px;
+  background: var(--color-fondo);
+  box-shadow: 0 24px 60px rgba(1, 30, 65, 0.35);
+  transform-origin: center center;
+  transition: transform 420ms cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+
+/* Mientras crece o se encoge, el contenido aparece/desaparece suave */
+.zoom-capa__panel > * {
+  transition: opacity 260ms ease 120ms;
+}
+
+.zoom-capa__panel--entrando > * {
+  opacity: 0;
+  transition-delay: 0ms;
+}
+
+.zoom-capa__barra {
+  display: flex;
+}
+
+.zoom-capa__cerrar {
+  min-height: 44px;
+  padding: 0 0.5rem;
+  border: none;
+  border-radius: var(--radio-chico);
+  background: transparent;
+  color: var(--color-petroleo);
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.zoom-capa__cerrar:hover {
+  background: #EEF3F7;
+}
+
+.zoom-capa__cerrar:focus-visible {
+  outline: 3px solid var(--color-foco);
+  outline-offset: 2px;
+}
+
+.zoom-capa__titulo {
+  margin: 0.25rem 0 0.25rem;
+  font-size: 1.6rem;
+}
+
+.mueble--cerca {
+  max-width: none;
+  padding-bottom: 0;
+}
+
+.mueble--cerca .mueble__cuerpo {
+  grid-template-columns: 1fr;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zoom-capa__panel,
+  .zoom-capa__panel > *,
+  .zoom-capa__fondo {
+    transition: none;
+  }
+}
+
+/* --- D6 · Después del pre-registro: Cómo llegar / Regresar al mapa --- */
+
+.vista-llegar {
+  justify-content: center;
+}
+
+.llegar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.llegar__resumen {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.llegar__resumen h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+}
+
+.llegar__que {
+  margin: 0;
+  color: var(--color-texto);
+}
+
+.llegar__datos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.9rem 1rem;
+  list-style: none;
+  border-radius: 14px;
+  background: var(--color-fondo);
+  border: 2px solid var(--color-borde);
+}
+
+.llegar__plazo {
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  background: var(--color-crema);
+  color: var(--color-azul);
+}
+
+.llegar__acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.llegar__acciones .boton--grande {
+  margin-top: 0;
+}
+
+/* Mapa: botón para volver directo a la estantería */
+.boton-estanteria {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  margin-left: auto;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+@media (max-width: 520px) {
+  .boton-estanteria {
+    margin-left: 0;
+  }
+}
